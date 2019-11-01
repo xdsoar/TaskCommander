@@ -18,7 +18,7 @@ class TaskRepo:
 
     def get_active_tasks(self) -> List[Task]:
         tasks = self.get_all_tasks()
-        active_tasks = [task for task in filter(lambda task: task.task_status == 'active')]
+        active_tasks = [task for task in filter(lambda task: task.task_status == 'active', tasks)]
         return active_tasks
 
     def save_task(self, task) -> Task:
