@@ -8,12 +8,13 @@ from TaskCommander.domain.task import Task
 
 class TaskRepo:
     task_file = "data.json"
-    file_io: FileIO
-    task_instance: List[Task]
+    task_instance: List[Task] = None
+
+    def __init__(self):
+        if self.task_instance is None:
+            self.__task_instance__init()
 
     def get_all_tasks(self) -> List[Task]:
-        if self.task_instance is None:
-            self.__task_instance__init(self.task_file)
         return self.task_instance
 
     def get_active_tasks(self) -> List[Task]:
@@ -22,13 +23,20 @@ class TaskRepo:
         return active_tasks
 
     def save_task(self, task) -> Task:
-        self.task_instance.append(task)
+        self.task_instance.append(task.__dict__)
         self.save()
 
     def save(self) -> Task:
-        self.file_io.write(json.dumps(self.task_instance))
-        self.file_io.flush()
+        with open(self.task_file, 'r+') as file_stream:
+            file_stream.seek(0)
+            file_stream.truncate()
+            file_stream.write(json.dumps(self.task_instance))
+            file_stream.flush()
 
     def __task_instance__init(self):
-        self.file_io = open(self.task_file, 'w')
-        self.task_instance = json.loads(self.file_io.read())
+        with open(self.task_file, 'r+') as file_stream:
+            file_content = file_stream.read()
+            if file_content is None or file_content == '':
+                self.task_instance = []
+            else:
+                self.task_instance = json.loads(file_content)

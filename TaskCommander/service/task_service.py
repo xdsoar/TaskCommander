@@ -8,6 +8,9 @@ from TaskCommander.service.task_repo import TaskRepo
 class TaskService:
     task_repo: TaskRepo
 
+    def __init__(self, repo):
+        self.task_repo = repo
+
     @staticmethod
     def finish_task(task: Task):
         task.state = 'finish'
@@ -19,6 +22,7 @@ class TaskService:
     def list_active_tasks(self) -> List[Task]:
         return self.task_repo.get_active_tasks()
 
-    def create_task(self) -> Task:
+    def create_task(self, name) -> Task:
         new_task = Task()
+        new_task.task_name = name
         self.task_repo.save_task(new_task)
