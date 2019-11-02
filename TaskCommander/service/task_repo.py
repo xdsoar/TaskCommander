@@ -1,7 +1,7 @@
 # coding=utf-8
 import json
 from io import FileIO
-from typing import List
+from typing import List, Dict
 
 from TaskCommander.domain.task import Task
 
@@ -23,14 +23,14 @@ class TaskRepo:
         return active_tasks
 
     def save_task(self, task) -> Task:
-        self.task_instance.append(task.__dict__)
+        self.task_instance.append(task)
         self.save()
 
     def save(self) -> Task:
         with open(self.task_file, 'r+') as file_stream:
             file_stream.seek(0)
             file_stream.truncate()
-            file_stream.write(json.dumps(self.task_instance))
+            file_stream.write(json.dumps([task.__dict__ for task in self.task_instance]))
             file_stream.flush()
 
     def __task_instance__init(self):
@@ -39,4 +39,13 @@ class TaskRepo:
             if file_content is None or file_content == '':
                 self.task_instance = []
             else:
-                self.task_instance = json.loads(file_content)
+                task_dict_array: List[Dict] = json.loads(file_content)
+                task_array = []
+                for task_dict in task_dict_array:
+                    task = Task()
+                    task.task_id = task_dict.get("task_id")
+                    task.task_name = task_dict.get("task_name")
+                    task.task_comment = task_dict.get("task_comment")
+                    task.task_status = task_dict.get("task_status")
+                    task_array.append(task)
+                self.task_instance = task_array
