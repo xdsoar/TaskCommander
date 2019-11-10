@@ -1,10 +1,11 @@
 # coding=utf-8
 from setuptools import setup, find_packages
 
-requirements = []
+requirements = [
+]
 
 test_requirements = [
-    'pytest'
+    'pytest', 'pytest-cov'
 ]
 
 setup(name='TaskCommander', version='0.1', package=find_packages, install_requires=requirements,

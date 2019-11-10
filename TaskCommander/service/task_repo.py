@@ -7,10 +7,10 @@ from TaskCommander.domain.task import Task
 
 
 class TaskRepo:
-    task_file = "data.json"
     task_instance: List[Task] = None
 
-    def __init__(self):
+    def __init__(self, task_file="data.json"):
+        self.task_file = task_file
         if self.task_instance is None:
             self.__task_instance__init()
 

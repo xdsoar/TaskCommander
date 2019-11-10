@@ -1,5 +1,6 @@
 # coding=utf-8
 import unittest
+from typing import List
 from unittest import mock
 
 from TaskCommander.domain.task import Task
@@ -7,7 +8,8 @@ from TaskCommander.service.task_service import TaskService
 
 
 class TestTaskService(unittest.TestCase):
-    task_service = TaskService(repo=mock.Mock())
+    mock_repo = mock.Mock()
+    task_service = TaskService(repo=mock_repo)
 
     def test_get_task(self):
         # given
@@ -35,3 +37,20 @@ class TestTaskService(unittest.TestCase):
         self.assertEqual(len(return_list), 2)
         self.assertEqual(return_list[0].task_name, 'a')
         self.assertEqual(return_list[1].task_name, 'c')
+
+    def test_save_task(self):
+        class MemoryRepo:
+            persistent_list: List[Task] = []
+
+            def save_task(self, task):
+                self.persistent_list.append(task)
+
+            def get_all_tasks(self):
+                return self.persistent_list
+
+        repo = MemoryRepo()
+        test_service = TaskService(repo=repo)
+        test_service.create_task("test_task")
+
+        saved_list = test_service.list_all_tasks()
+        self.assertEqual(saved_list[0].task_name, 'test_task')
