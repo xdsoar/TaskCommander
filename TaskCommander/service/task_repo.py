@@ -1,8 +1,9 @@
 # coding=utf-8
 import json
-from io import FileIO
+import os
 from typing import List, Dict
 
+import pkg_resources
 from TaskCommander.domain.task import Task
 
 
@@ -10,7 +11,9 @@ class TaskRepo:
     task_instance: List[Task] = None
 
     def __init__(self, task_file="data.json"):
-        self.task_file = task_file
+        resource_package = pkg_resources.get_distribution('TaskCommander').location
+        full_path = os.path.join(resource_package, task_file)
+        self.task_file = full_path
         if self.task_instance is None:
             self.__task_instance__init()
 
