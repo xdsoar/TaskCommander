@@ -1,4 +1,4 @@
 /.idea/
-TaskCommander/data.json
-/TaskCommander/TaskCommander.egg-info/
+taskcommander/data.json
+/taskcommander/TaskCommander.egg-info/
 venv

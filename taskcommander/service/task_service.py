@@ -1,8 +1,8 @@
 # coding=utf-8
 from typing import List
 
-from TaskCommander.domain.task import Task
-from TaskCommander.service.task_repo import TaskRepo
+from taskcommander.domain.task import Task
+from taskcommander.service.task_repo import TaskRepo
 
 
 class TaskService:

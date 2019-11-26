@@ -8,5 +8,5 @@ test_requirements = [
     'pytest', 'pytest-cov'
 ]
 
-setup(name='TaskCommander', version='0.1', package=find_packages, install_requires=requirements,
+setup(name='taskcommander', version='0.1', package=find_packages, install_requires=requirements,
       test_requirements=test_requirements)

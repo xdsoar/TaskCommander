@@ -2,8 +2,8 @@
 import argparse
 import sys
 
-from TaskCommander.service.task_repo import TaskRepo
-from TaskCommander.service.task_service import TaskService
+from taskcommander.service.task_repo import TaskRepo
+from taskcommander.service.task_service import TaskService
 
 task_service = TaskService(repo=TaskRepo())
 

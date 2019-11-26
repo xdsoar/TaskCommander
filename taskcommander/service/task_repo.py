@@ -4,14 +4,14 @@ import os
 from typing import List, Dict
 
 import pkg_resources
-from TaskCommander.domain.task import Task
+from taskcommander.domain.task import Task
 
 
 class TaskRepo:
     task_instance: List[Task] = None
 
     def __init__(self, task_file="data.json"):
-        resource_package = pkg_resources.get_distribution('TaskCommander').location
+        resource_package = pkg_resources.get_distribution('taskcommander').location
         full_path = os.path.join(resource_package, task_file)
         self.task_file = full_path
         if self.task_instance is None:

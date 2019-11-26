@@ -3,8 +3,8 @@ import unittest
 from typing import List
 from unittest import mock
 
-from TaskCommander.domain.task import Task
-from TaskCommander.service.task_service import TaskService
+from taskcommander.domain.task import Task
+from taskcommander.service.task_service import TaskService
 
 
 class TestTaskService(unittest.TestCase):
