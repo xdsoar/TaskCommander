@@ -6,6 +6,7 @@
 trigger:
 - master
 - dev
+- azure
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -29,13 +30,11 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
-    cd taskcommander
     pip install pytest-azurepipelines
-    pip install .[test]
-    pytest --cov=./
+    pip install taskcommander/.[test]
+    pytest --cov=./taskcommander/
   displayName: 'pytest'
 
 - script: |
-    cd taskcommander
-    bash <(curl -s https://codecov.io/bash)
+    pip install codecov && codecov  -t $(CODECOV_TOKEN)
   displayName: 'upload code coverage'
