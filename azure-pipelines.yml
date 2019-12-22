@@ -31,10 +31,11 @@ steps:
 - script: |
     cd taskcommander
     pip install pytest-azurepipelines
-    pip install .test
+    pip install .[test]
     pytest --cov=./
   displayName: 'pytest'
 
 - script: |
+    cd taskcommander
     pip install --user codecov && codecov -t $(CODECOV_TOKEN)
   displayName: 'upload code coverage'
