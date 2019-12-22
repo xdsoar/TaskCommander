@@ -11,8 +11,6 @@ pool:
   vmImage: 'ubuntu-latest'
 strategy:
   matrix:
-    Python35:
-      python.version: '3.5'
     Python36:
       python.version: '3.6'
     Python37:
@@ -31,7 +29,12 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
-    pip install pytest pytest-azurepipelines
     cd taskcommander
-    pytest
+    pip install pytest-azurepipelines
+    pip install .test
+    pytest --cov=./
   displayName: 'pytest'
+
+- script: |
+    pip install --user codecov && codecov -t $(CODECOV_TOKEN)
+  displayName: 'upload code coverage'
