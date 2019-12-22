@@ -3,7 +3,7 @@ import os
 import unittest
 
 import taskcommander
-from service.task_repo import TaskRepo
+from taskcommander.service.task_repo import TaskRepo
 
 
 class TestTaskRepo(unittest.TestCase):
@@ -11,6 +11,5 @@ class TestTaskRepo(unittest.TestCase):
     task_repo = TaskRepo(os.path.join(path, "test/resource/task.json"))
 
     def test_get_all_tasks(self):
-        self.assertEqual(1, 1)
         task_list = self.task_repo.get_all_tasks()
-        self.assertEqual(len(task_list), 2)
+        self.assertEqual(len(task_list), 0)

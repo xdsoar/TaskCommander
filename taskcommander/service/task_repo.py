@@ -37,7 +37,7 @@ class TaskRepo:
             file_stream.flush()
 
     def __task_instance__init(self):
-        with open(self.task_file, 'r+') as file_stream:
+        with open(self.task_file, 'a+') as file_stream:
             file_content = file_stream.read()
             if file_content is None or file_content == '':
                 self.task_instance = []

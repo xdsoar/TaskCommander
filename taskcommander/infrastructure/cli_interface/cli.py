@@ -16,6 +16,7 @@ def task_cli_output(tasks):
 
 
 def execute(command):
+    print(command)
     if command.list:
         tasks = task_service.list_active_tasks()
         task_cli_output(tasks)

@@ -1,7 +1,7 @@
 # coding=utf-8
 import unittest
 
-from infrastructure.cli_interface import cli
+from taskcommander.infrastructure.cli_interface import cli
 
 
 class TestCli(unittest.TestCase):
