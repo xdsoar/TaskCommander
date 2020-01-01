@@ -1,6 +1,7 @@
 # coding=utf-8
 import json
 import os
+from os import path
 from typing import List, Dict
 
 import pkg_resources
@@ -39,7 +40,10 @@ class TaskRepo:
         return len(self.get_active_tasks())
 
     def __task_instance__init(self):
-        with open(self.task_file, 'r+') as file_stream:
+        if not path.exists(self.task_file):
+            self.task_instance = []
+            return
+        with open(self.task_file, 'r') as file_stream:
             file_content = file_stream.read()
             if file_content is None or file_content == '':
                 self.task_instance = []

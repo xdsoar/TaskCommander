@@ -1,6 +1,6 @@
 from typing import List
 
-from domain.task import Task
+from taskcommander.domain.task import Task
 from texttable import Texttable
 
 

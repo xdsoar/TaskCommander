@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from domain.task import Task
-from infrastructure.cli_interface.task_view import create_task_list_view
+from taskcommander.domain.task import Task
+from taskcommander.infrastructure.cli_interface.task_view import create_task_list_view
 
 
 class TestTaskView(TestCase):

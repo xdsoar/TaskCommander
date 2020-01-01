@@ -3,7 +3,7 @@ import os
 import unittest
 
 import taskcommander
-from domain.task import Task
+from taskcommander.domain.task import Task
 from taskcommander.service.task_repo import TaskRepo
 
 
