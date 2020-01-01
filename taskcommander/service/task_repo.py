@@ -14,8 +14,7 @@ class TaskRepo:
         resource_package = pkg_resources.get_distribution('taskcommander').location
         full_path = os.path.join(resource_package, task_file)
         self.task_file = full_path
-        if self.task_instance is None:
-            self.__task_instance__init()
+        self.__task_instance__init()
 
     def get_all_tasks(self) -> List[Task]:
         return self.task_instance
@@ -30,7 +29,7 @@ class TaskRepo:
         self.save()
 
     def save(self) -> Task:
-        with open(self.task_file, 'r+') as file_stream:
+        with open(self.task_file, 'w+') as file_stream:
             file_stream.seek(0)
             file_stream.truncate()
             file_stream.write(json.dumps([task.__dict__ for task in self.task_instance]))
@@ -40,7 +39,7 @@ class TaskRepo:
         return len(self.get_active_tasks())
 
     def __task_instance__init(self):
-        with open(self.task_file, 'a+') as file_stream:
+        with open(self.task_file, 'r+') as file_stream:
             file_content = file_stream.read()
             if file_content is None or file_content == '':
                 self.task_instance = []
@@ -53,5 +52,6 @@ class TaskRepo:
                     task.task_name = task_dict.get("task_name")
                     task.task_comment = task_dict.get("task_comment")
                     task.task_status = task_dict.get("task_status")
+                    task.order_number = task_dict.get("order_number")
                     task_array.append(task)
                 self.task_instance = task_array
