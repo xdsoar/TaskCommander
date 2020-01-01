@@ -2,24 +2,18 @@
 import argparse
 import sys
 
+from taskcommander.infrastructure.cli_interface.task_view import create_task_list_view
 from taskcommander.service.task_repo import TaskRepo
 from taskcommander.service.task_service import TaskService
 
 task_service = TaskService(repo=TaskRepo())
 
 
-def task_cli_output(tasks):
-    print("----------------------------------------------------------------")
-    for task in tasks:
-        print("|    {task_name}     |".format(task_name=task.task_name))
-    print("----------------------------------------------------------------")
-
-
 def execute(command):
-    print(command)
     if command.list:
         tasks = task_service.list_active_tasks()
-        task_cli_output(tasks)
+        output = create_task_list_view(tasks)
+        print(output)
         return
 
     if command.add:

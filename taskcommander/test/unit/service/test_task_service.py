@@ -13,7 +13,8 @@ class TestTaskService(unittest.TestCase):
 
     def test_get_task(self):
         # given
-        task_list = [Task(task_name='a'), Task(task_name='b'), Task(task_name='c')]
+        task_list = [Task(task_name='a', order_number=2), Task(task_name='b', order_number=3),
+                     Task(task_name='c', order_number=1)]
         self.task_service.task_repo.get_all_tasks = mock.Mock(return_value=task_list)
 
         # when
@@ -21,13 +22,13 @@ class TestTaskService(unittest.TestCase):
 
         # then
         self.assertEqual(len(return_list), 3)
-        self.assertEqual(return_list[0].task_name, 'a')
-        self.assertEqual(return_list[1].task_name, 'b')
-        self.assertEqual(return_list[2].task_name, 'c')
+        self.assertEqual(return_list[1].task_name, 'a')
+        self.assertEqual(return_list[2].task_name, 'b')
+        self.assertEqual(return_list[0].task_name, 'c')
 
     def test_get_task_active(self):
         # given
-        task_list = [Task(task_name='a'), Task(task_name='c')]
+        task_list = [Task(task_name='a', order_number=1), Task(task_name='c', order_number=1)]
         self.task_service.task_repo.get_active_tasks = mock.Mock(return_value=task_list)
 
         # when
@@ -47,6 +48,9 @@ class TestTaskService(unittest.TestCase):
 
             def get_all_tasks(self):
                 return self.persistent_list
+
+            def get_all_task_count(self):
+                return len(self.persistent_list)
 
         repo = MemoryRepo()
         test_service = TaskService(repo=repo)

@@ -36,6 +36,9 @@ class TaskRepo:
             file_stream.write(json.dumps([task.__dict__ for task in self.task_instance]))
             file_stream.flush()
 
+    def get_all_task_count(self):
+        return len(self.get_active_tasks())
+
     def __task_instance__init(self):
         with open(self.task_file, 'a+') as file_stream:
             file_content = file_stream.read()
